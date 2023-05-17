@@ -1,0 +1,21 @@
+#!/bin/bash -l
+
+#SBATCH -A uppmax2023-2-8
+#SBATCH -M snowy
+#SBATCH -p core
+#SBATCH -n 1
+#SBATCH -t 00:20:00
+#SBATCH -J fastqc_RNA
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user victoria-marie.giffin.2741@student.uu.se
+
+#load modules
+module load bioinfo-tools
+module load FastQC/0.11.9
+
+#commands
+fastqc /home/tgiffin/RNA_untrimmed/SRR4342137.1.fastq.gz \
+/home/tgiffin/RNA_untrimmed/SRR4342137.2.fastq.gz \
+/home/tgiffin/RNA_untrimmed/SRR4342139.1.fastq.gz \
+/home/tgiffin/RNA_untrimmed/SRR4342139.2.fastq.gz \
+-o fastqc_RNA_pre_trim_results
