@@ -4,7 +4,7 @@ Genome Analysis Project
 **Project Plan**
 
 **Aim:**
-"Dead Zones" or areas of ocean with seasonal to long-term low dissolved oxygen (DO) concentrations are becoming increasingly more frequent. This study focuses on one of the largest costal dead zones on the northern Gulf of Mexico. The low DO levels are due to eutrophication-enhanced bacterioplankton respiration as well as strong seasonal stratification. I am going to assemble genomes of becterioplankton collected from the northern Gulf of Mexico dead zone by Thrash et al. as described in *Metabolic roles of uncultivated bacterioplankton lineages in the Northern Gulf of Mexico “dead zone”*. 
+"Dead Zones" or areas of ocean with seasonal to long-term low dissolved oxygen (DO) concentrations are becoming increasingly more frequent. This study focuses on one of the largest costal dead zones on the northern Gulf of Mexico. The low DO levels are due to eutrophication-enhanced bacterioplankton respiration as well as strong seasonal stratification. I am going to assemble genomes of becterioplankton collected from the northern Gulf of Mexico dead zone by Thrash et al. as described in *Metabolic roles of uncultivated bacterioplankton lineages in the Northern Gulf of Mexico “dead zone”*. Analysis will include metagenome assembly, binning to create individual genomes, as well as expression analysis and phylogenetic assignment. Knowing which species or genuses of bacerioplankton are able to live in the nGOM, in both oxic and hypoxic environment is imperative to understanding the environment. Learning more about these species, both previously described and not will help us to better understand the active biogeochemical cycling they mediate. Expression analysis conducted along with functional annotation gives even more insight as we can see the metabolic pathways present and how they contribute to the environment. 
      
 
 **Workflow**
@@ -25,7 +25,7 @@ Genome Analysis Project
 | Annotation   | Prokka  | <ul><li>GFF file with annotations</li><li>GenBank file with sequences</li></ul> | ~ 1 h   | April 28th    |  Yes |
 | Phylogenetic Placement   | PhyloPhlan |  <ul><li>top SGBs</li><li>closest SGB, GGB, FGB</li><li>reference genomes, and "all vs. all" matrix of all pairwise Mash distances</li></ul>  | ~6 h  | April 28th    | Yes |
 | Expression Analysis   | HTseq  |  .txt with read count table   | ~6 h    | April 28th   | Yes |
-| Extra Analysis: Abundance of Organisms | BWA | .bam | ~ 4-6 h | May 12th |
+| Extra Analysis: Abundance of Organisms | BWA | .bam | ~ 4-6 h | May 12th | Yes |
 
 
 **Data Management System**
@@ -71,9 +71,6 @@ Genome Analysis Project
     │   ├── CheckM_data
     │   ├── checkm_results
     ├── 08_RNA_mapping
-    │       └── 1_SRR4342137_RNA_alignment.bam
-    │       └── ...
-    │       └── 49_SRR4342139_RNA_alignment.bam
     │       └── bwa_script_for_loop 
     │       └── bwa_script_for_loop_sample_2
     │       └── slurm-7855951.out
@@ -97,6 +94,9 @@ Genome Analysis Project
     │       └── 49_SRR4342139_expression_results.txt
     │       └── htseq_script
     │       └── slurm-7856869.out
+    ├── 12_abundance_of_bins
+    │       └── bwa_script
+    │   ├── mapping to bins 
     ├── DNA_trimmed
     ├── RNA_untrimmed
 </pre>
