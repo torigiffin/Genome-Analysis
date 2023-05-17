@@ -1,0 +1,24 @@
+# Read the input file
+setwd("/Users/torigiffin/Documents/11_expression_analysis")
+file_list <- list.files(pattern = "./*.txt")
+
+# Make an empty dataframe in which we store data from all samples
+total_data = data.frame()
+
+# Read each htseq file from each sample and append to the total data frame
+for (item in file_list) {
+  tmp_data = read.table(item, header = FALSE, col.names = c("gene","count"))
+  # Make a column with the filename, so we can tell samples apart in the total file
+  tmp_data$file = rep(c(item))
+  # Append to total
+  total_data = rbind(total_data, tmp_data)
+}
+
+total_data$file=sub("_expression_results.txt", "", total_data$file)
+# load ggplot for plotting 
+library(ggplot2)
+
+# make plot
+ggplot(total_data) +
+  geom_histogram(aes(log(count))) +
+  facet_wrap(file~.)
