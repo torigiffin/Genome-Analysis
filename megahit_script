@@ -1,0 +1,22 @@
+#!/bin/bash -l
+
+#SBATCH -A uppmax2023-2-8
+#SBATCH -M snowy
+#SBATCH -p core
+#SBATCH -n 2
+#SBATCH -t 07:00:00
+#SBATCH -J megahit
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user victoria-marie.giffin.2741@student.uu.se
+
+#load modules
+module load bioinfo-tools
+module load megahit/1.2.9
+
+#megahit commands
+megahit \
+-1 /home/tgiffin/genome_analyses/DNA_trimmed/SRR4342129_1.paired.trimmed.fastq.gz,/home/tgiffin/genome_analyses/DNA_trimmed/SRR4342133_1.paired.trimmed.fastq.gz \
+-2 /home/tgiffin/genome_analyses/DNA_trimmed/SRR4342129_2.paired.trimmed.fastq.gz,/home/tgiffin/genome_analyses/DNA_trimmed/SRR4342133_2.paired.trimmed.fastq.gz \
+-o DNA_assembly_results \
+--k-list 59,79,99 \
+--kmin-1pass
