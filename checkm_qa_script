@@ -1,0 +1,32 @@
+#!/bin/bash -l
+
+
+#SBATCH -A uppmax2023-2-8
+#SBATCH -M snowy
+#SBATCH -p core
+#SBATCH -n 4
+#SBATCH -t 01:00:00
+#SBATCH -J checkm
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user victoria-marie.giffin.2741@student.uu.se
+
+#load modules
+mkdir CheckM_data
+cd CheckM_data
+module load bioinfo-tools CheckM/1.1.3
+
+#download the database
+cp -av $CHECKM_DATA/checkm_data_2015_01_16.tar.gz .
+
+#unpack the data
+mkdir 2015_01_16
+cd 2015_01_16
+tar xzf ../checkm_data_2015_01_16.tar.gz
+
+#tell CheckM the data location
+checkm data setRoot $PWD
+
+#checkm commands
+
+checkm qa /home/tgiffin/genome_analyses/07_binning_evaluation/checkm_results/lineage.ms \
+/home/tgiffin/genome_analyses/07_binning_evaluation/checkm_results > checkm_overview
