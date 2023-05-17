@@ -1,0 +1,38 @@
+#!/bin/bash -l
+
+
+#SBATCH -A uppmax2023-2-8
+#SBATCH -M snowy
+#SBATCH -p core
+#SBATCH -n 2
+#SBATCH -t 06:00:00
+#SBATCH -J bwa
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user victoria-marie.giffin.2741@student.uu.se
+
+#load modules
+module load bioinfo-tools
+module load bwa/0.7.17
+module load samtools
+
+#concatenate bins
+for i in /home/tgiffin/genome_analyses/09_annotation/*_prokka_results;
+do
+
+name=$(basename -s _prokka_results $i)
+
+bwa index ${i}/annotation.fna
+
+#run paired -end RNA sample 1 against bins
+bwa mem -t 2 ${i}/annotation.fna \
+/home/tgiffin/genome_analyses/02_RNA_trimming/trimmed_RNA/forward_paired_SRR4342137.fastq.gz \
+/home/tgiffin/genome_analyses/02_RNA_trimming/trimmed_RNA/reverse_paired_SRR4342137.fastq.gz |\
+samtools sort -o ${name}_SRR4342137_RNA_alignment.bam
+
+#run paired -end RNA sample 2 against bins
+bwa mem -t 2 ${i}/annotation.fna\
+/home/tgiffin/genome_analyses/02_RNA_trimming/trimmed_RNA/forward_paired_SRR4342139.fastq.gz \
+/home/tgiffin/genome_analyses/02_RNA_trimming/trimmed_RNA/reverse_paired_SRR4342139.fastq.gz |\
+samtools sort -o ${name}_SRR4342139_RNA_alignment.bam
+
+done
