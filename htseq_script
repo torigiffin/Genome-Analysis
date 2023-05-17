@@ -1,0 +1,32 @@
+#!/bin/bash -l
+
+#SBATCH -A uppmax2023-2-8
+#SBATCH -M snowy
+#SBATCH -p core
+#SBATCH -n 4
+#SBATCH -t 06:00:00
+#SBATCH -J htseq
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user victoria-marie.giffin.2741@student.uu.se
+
+#load modules
+module load bioinfo-tools
+module load htseq/2.0.2
+
+for i in {1..49};
+
+do
+
+#HTseq commands
+htseq-count -f bam -r pos -i ID -t CDS \
+/proj/genomeanalysis2023/nobackup/work/tori/${i}_SRR4342137_RNA_alignment.bam \
+/home/tgiffin/genome_analyses/09_annotation/${i}_prokka_results/annotation_noseq.gff \
+> ${i}_SRR4342137_expression_results.txt
+
+#HTseq commands
+htseq-count -f bam -r pos -i ID -t CDS \
+/proj/genomeanalysis2023/nobackup/work/tori/${i}_SRR4342139_RNA_alignment.bam \
+/home/tgiffin/genome_analyses/09_annotation/${i}_prokka_results/annotation_noseq.gff \
+> ${i}_SRR4342139_expression_results.txt
+
+done
