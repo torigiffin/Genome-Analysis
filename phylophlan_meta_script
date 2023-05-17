@@ -1,0 +1,27 @@
+#!/bin/bash -l
+
+#SBATCH -A uppmax2023-2-8
+#SBATCH -M snowy
+#SBATCH -p core
+#SBATCH -n 2
+#SBATCH -t 07:00:00
+#SBATCH -J phylophlan
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user victoria-marie.giffin.2741@student.uu.se
+
+source ~/.bashrc
+
+# Loading modules
+module load conda
+source conda_init.sh
+export CONDA_ENVS_PATH=~/envs
+source activate phylophlan
+
+# Create variables
+outdir=~/genome_analyses/10_phylo_placement/phylogeny_results
+configs=~/envs/configs
+annotation=~/genome_analyses/09_annotation
+
+cd $outdir
+
+phylophlan_metagenomic -i input/metagenome -d /proj/genomeanalysis2023/nobackup/work/mariada/phylophlan_databases/SGB.Jul20
