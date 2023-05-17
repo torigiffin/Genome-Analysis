@@ -1,0 +1,24 @@
+#!/bin/bash -l
+
+#SBATCH -A uppmax2023-2-8
+#SBATCH -M snowy
+#SBATCH -p core
+#SBATCH -n 4
+#SBATCH -t 02:00:00
+#SBATCH -J prokka
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user victoria-marie.giffin.2741@student.uu.se
+
+#load modules
+module load bioinfo-tools
+module load prokka
+
+#prokka commands
+for i in /home/tgiffin/genome_analyses/06_binning/bins/*.fa;
+do
+
+name="$(basename "${i%.*}")"
+
+prokka --outdir ${name}_prokka_results_2 --prefix ${name}_annotation $i  --centre X --compliant
+
+done
